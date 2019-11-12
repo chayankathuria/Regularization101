@@ -35,3 +35,20 @@ pipelines.append(('Poly10', Pipeline([('Poly10-Feat', PolynomialFeatures(10)),('
 pipelines.append(('Poly15', Pipeline([('Poly15-Feat', PolynomialFeatures(15)),('PR-15', LinearRegression())])))
 pipelines.append(('Poly20', Pipeline([('Poly20-Feat', PolynomialFeatures(20)),('PR-20', LinearRegression())])))
 pipelines
+
+# importing kfold,LOOCV for cross validation
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import LeaveOneOut
+import pandas as pd
+
+scoring = 'neg_mean_squared_error'
+results = []
+names = []
+for name, model in pipelines:
+    kfold = KFold(n_splits=7, shuffle=True, random_state=5)
+    cv_results = cross_val_score(model, x, y, cv=LeaveOneOut(), scoring=scoring)
+    results.append(cv_results)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean()*100, cv_results.std()*100)
+    print(msg)
