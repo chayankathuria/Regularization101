@@ -9,4 +9,7 @@ I then aim to apply L1 and L2 regressions on the same data and polynomial featur
 
 Regularization should decrease overfitting to a large amount for even highly overfitting polynomial regressions of very high orders.
 
+..
+Used Cross validation for evaluating the models. Will also be checking using TrainTestSplit.
+
 ..<TBU>
