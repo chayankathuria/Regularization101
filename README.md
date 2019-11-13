@@ -12,4 +12,10 @@ Regularization should decrease overfitting to a large amount for even highly ove
 ..
 Used Cross validation for evaluating the models. Will also be checking using TrainTestSplit.
 
+..
+Check the performance of polynomial models upto 20 order on the non linear data
+
+Plotted the predictions and checked for overfitting of higher order models
+
+Plotted same models using ridge and Lasso to see the 'smoothening' effect
 ..<TBU>
