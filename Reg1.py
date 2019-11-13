@@ -98,3 +98,35 @@ for i in range(1,30):
     Poly_model = LinearRegression(fit_intercept=True)
     Poly_model.fit(X_poly,y)
     print(i, Poly_model.score(X_poly,y))
+
+# Plotting Linear regression models with polynomial features to visualize over fitting 
+
+overall_acc = []
+test_acc = []
+colors = ['r','g','b','c','m']
+plt.figure(figsize=(8,8))
+plt.plot(x,y,'ro', label='data')
+
+t = np.linspace(1,2*np.pi,100).reshape(-1,1)
+plt.plot(t,np.cos(t)*np.log(t),'k--', lw=4, label='True')
+
+for i in range(1,13):
+    PR = PolynomialFeatures(i)
+    X_poly = PR.fit_transform(x)
+    Poly_model = LinearRegression(fit_intercept=True)
+    Poly_model.fit(X_poly,y)
+    overall_acc.append(Poly_model.score(X_poly,y))
+    
+    x_train, x_test, y_train, y_test = train_test_split(X_poly,y, \
+                                                    test_size=0.3, 
+                                                    random_state=200)
+    test_acc.append(Poly_model.score(x_test,y_test))
+#     print(i, Poly_model.score(X_poly,y), Poly_model.score(x_test,y_test) )
+    
+#     print(i, Poly_model.coef_)
+#     print('')
+    
+    if i%3==0:
+        plt.plot(t,Poly_model.predict(PR.fit_transform(t)), label=i) #, color=colors[i%5])
+
+plt.legend()
